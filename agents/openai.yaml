@@ -1,0 +1,7 @@
+interface:
+  display_name: "Linux Embedded Dev"
+  short_description: "Learn and build Linux embedded systems from bringup to profiling"
+  default_prompt: "Use $linux-embedded-dev to guide Linux embedded learning, source reading, bringup, debugging, and performance work."
+
+policy:
+  allow_implicit_invocation: true

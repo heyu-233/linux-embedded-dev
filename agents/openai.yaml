@@ -1,7 +1,7 @@
-interface:
+﻿interface:
   display_name: "Linux Embedded Dev"
-  short_description: "Learn and build Linux embedded systems from bringup to profiling"
-  default_prompt: "Use $linux-embedded-dev to guide Linux embedded learning, source reading, bringup, debugging, and performance work."
+  short_description: "Linux embedded teaching and debugging"
+  default_prompt: "Use $linux-embedded-dev as a teaching-plus-debugging skill for Linux embedded bring-up, DTS/device tree, driver, boot log, cross-build, and camera/V4L2 work. Support two modes: teaching mode for building understanding, code maps, and layered explanations, and efficiency mode for the shortest reliable path with compressed explanations. In continuous debugging sessions, keep the same mode and style even when later turns only contain logs, code snippets, command output, or short follow-up replies. Default to the template: Mode, Current goal, Principle in brief, Do this now, Send back, Optional follow-up. Keep commands exact, excerpts bounded, and prefer small interruptible steps: usually one main action, but allow short 2-3 step mini-closures when they naturally belong together. When reading source code, give the code map before the fine details."
 
 policy:
   allow_implicit_invocation: true

@@ -34,7 +34,7 @@ If there is no explicit signal, default to teaching mode with short explanations
 - Give concrete commands, not vague instructions. If asking the user to inspect something, provide the exact command to run, the file to open, or the minimal edit to make.
 - Prefer small, interruptible steps. Default to one main action at a time, but allow 2-3 tightly related steps when they form one natural check or mini-closure.
 - After each step, stop at a natural checkpoint so the user can return the result before continuing.
-- Keep terminal output requests narrow. Ask for focused slices such as `dmesg | tail -n 80`, `sed -n '1,120p' file`, `grep -n "pattern" file`, or one function body, not full files or huge logs.
+- Keep terminal output requests bounded and matched to the current step. Prefer the smallest context that is still sufficient, such as a focused log window, one complete function, one DTS node, or one command's full but limited output, rather than full files or huge logs.
 - When a command may print too much, include a bounded form by default: `tail`, `head`, `sed -n`, `grep -n`, `rg -n`, or `find` with a specific pattern.
 - When asking the user to modify files manually, provide the exact target file, the intended change, and a minimal replacement block. Prefer one file and one purpose per step.
 - When possible, explain why the current step matters in one short sentence, then give the command.
@@ -49,6 +49,7 @@ Default to this response structure for each turn in an active Linux embedded ses
 - **Do this now**: give one primary command or one minimal edit.
 - **Manual step note**: when the step is intentionally manual for learning, say why it is manual and when it can later be automated.
 - **Send back**: say exactly what the user should return, such as the last 30 log lines, one function body, one DTS node, or one command result.
+- **Check your understanding**: in teaching mode, optionally ask one short question that helps the user think about the current layer, role, or next step without blocking progress.
 - **Optional follow-up**: mention one concept that can be expanded if the user wants more teaching.
 
 Template rules:
@@ -59,6 +60,7 @@ Template rules:
 - Every turn should include a precise "Send back" instruction.
 - When reading source code, prefer a code map in the teaching section before diving into individual lines.
 - In efficiency mode, the "Principle in brief" section may shrink to 1-2 sentences.
+- In teaching mode, a short question-back is encouraged when it helps the user build understanding, but it must not block the next action.
 
 ## Teaching rules
 
@@ -81,6 +83,32 @@ This skill is not only a debugger. It is also a guided teaching workflow for Lin
 - Do not preserve manual work out of habit. If the same manual action becomes repetitive or operational rather than educational, explicitly tell the user what command, script, or automation can replace it.
 - When choosing a manual step in teaching mode, briefly explain why the manual path is educationally useful right now.
 - Outside teaching-focused moments, prefer the more direct and automatable path.
+
+## Teaching question rules
+
+In teaching mode, actively use short question-back prompts as a teaching tool, but keep them low-pressure and non-blocking.
+
+Keep these core rules in mind:
+
+- use at most one short question in a turn
+- keep it tightly tied to the current step
+- do not make it feel like an exam
+- never block the next action on whether the user answered
+
+For detailed patterns, timing, and examples, read `references/teaching-question-patterns.md`.
+
+## Code explanation rules
+
+When the user asks about source code, do not default to line-by-line translation. Start from system position, code role, and the few points that matter most.
+
+Keep these core rules in mind:
+
+- prefer a code map before local details
+- do not explain every line unless the user explicitly asks for a close read
+- focus on ownership, control flow, state changes, resource acquisition, registration, and error paths
+- if the code is long, first identify the next small slice worth reading
+
+For the full code explanation method and template, read `references/code-explanation-guide.md`.
 
 ## Efficiency rules
 
@@ -207,10 +235,10 @@ Avoid broad suggestions like "check the configuration" unless you name the exact
 
 When collecting evidence from the user:
 
-- ask for the smallest useful artifact first
+- ask for the smallest sufficient artifact first
 - prefer one command and one expected output at a time
 - avoid asking for full source files unless the file is short and the full context is required
-- if more context is needed, request the next narrow slice instead of restarting with a large dump
+- if more context is needed, request the next bounded chunk instead of restarting with a large dump
 
 ### 5. Leave reusable artifacts behind
 
@@ -264,5 +292,7 @@ Load only what is needed:
 - `references/debug-checklists.md` for reusable bring-up and debugging checklists
 - `references/camera-v4l2-workflow.md` for Linux camera, V4L2, and media troubleshooting
 - `references/board-case-template.md` to append real board findings while you work
+- `references/teaching-question-patterns.md` for teaching-mode question-back patterns
+- `references/code-explanation-guide.md` for source-code explanation strategy and template
 
 Add new reference files as the project deepens. Keep each one narrow and practical.

@@ -1,37 +1,55 @@
 ﻿# linux-embedded-dev
 
-A Codex skill for Linux embedded learning, bringup, debugging, source reading, and performance work.
+A Codex skill for Linux embedded learning, bringup, debugging, source reading, review, and performance work.
 
-This skill is designed as a broad Linux embedded development companion rather than a narrow single-topic helper. It helps route problems by layer, guide source reading, structure debugging, and accumulate durable project notes.
+`linux-embedded-dev` is designed as a broad Linux embedded development companion rather than a narrow single-topic helper. It routes problems by layer, guides source reading, keeps debugging incremental, and helps maintain durable project notes.
 
-It also includes a built-in camera companion module for media and V4L2 work such as i.MX6ULL + OV5640 bringup and capture-path analysis.
+It also includes a camera companion module for media and V4L2 work, including i.MX6ULL + OV5640 bringup and capture-path analysis.
 
-## What this skill covers
+## Contents
+
+- [What It Covers](#what-it-covers)
+- [How It Works](#how-it-works)
+- [Skill Structure](#skill-structure)
+- [Installation](#installation)
+- [Example Prompts](#example-prompts)
+- [Design Notes](#design-notes)
+- [License](#license)
+
+## What It Covers
 
 - Linux embedded learning roadmap
 - Boot chain and startup analysis
 - Device tree and driver workflow
-- Common bus debugging
-  - I2C
-  - SPI
-  - UART
-  - MMC/SD
+- Common bus debugging: I2C, SPI, UART, MMC/SD
 - Character device and platform driver learning path
 - Root filesystem and userspace integration
 - Profiling and observability
 - Project-local learning notes
-- Camera companion
-  - V4L2
-  - media graph
-  - sensor bringup
-  - capture-path optimization
+- Camera companion: V4L2, media graph, sensor bringup, capture-path optimization
 
-## Skill structure
+## How It Works
+
+The skill first routes the problem to the right Linux embedded layer, then gives a small next step and asks for the exact result needed for the next branch.
+
+Default response shape:
+
+```text
+I think you are currently at this layer or module.
+I think so because of these clues.
+The smallest useful next step is this.
+After you do it, send me these exact results.
+```
+
+This keeps debugging focused and avoids long command dumps before the system state is known.
+
+## Skill Structure
 
 ```text
 linux-embedded-dev/
 |-- SKILL.md
 |-- README.md
+|-- LICENSE
 |-- agents/
 |   `-- openai.yaml
 `-- references/
@@ -49,40 +67,59 @@ linux-embedded-dev/
     `-- ...
 ```
 
-## How it works
+## Key References
 
-1. Route to the right module first.
-2. Explain why that layer is the right entry point.
-3. Give the smallest useful next step.
-4. Ask the user to return the exact output needed for the next branch.
-
-## Default response pattern
-
-- I think you are currently at this layer or module.
-- I think so because of these clues.
-- The smallest useful next step is this.
-- After you do it, send me these exact results.
-
-## Camera companion
-
-Camera work is included as a companion module inside the broader Linux embedded skill.
-
-Current camera references are especially useful for i.MX6ULL + OV5640 style BSP workflows, but the structure is reusable for other Linux camera stacks too.
+- `references/module-index.md`: first-stop decision tree for routing to boot, DT/driver, bus, userspace, performance, or camera work.
+- `references/boot-chain-and-startup.md`: bootloader to kernel to init startup path.
+- `references/device-tree-and-driver-workflow.md`: DTS, probe, ownership, and driver resource flow.
+- `references/common-bus-debugging.md`: I2C, SPI, UART, and MMC/SD debug workflow.
+- `references/char-device-and-platform-driver-path.md`: learning path for platform drivers and char-device style interfaces.
+- `references/camera-companion-index.md`: entry point for V4L2, media graph, sensor bringup, and camera performance topics.
 
 ## Installation
 
-Place this folder inside your local Codex skills directory.
+Clone or download this repository, then place the folder in your local Codex skills directory.
 
-Typical local location on Windows:
+Typical Windows location:
 
 ```text
 C:\Users\<your-user>\.codex\skills\linux-embedded-dev
 ```
 
-## Example prompts
+Typical Unix-like location:
 
-- `Use $linux-embedded-dev to help me learn Linux embedded development from bootloader to userspace.`
-- `Use $linux-embedded-dev to debug why my device tree node probes but no /dev node appears.`
-- `Use $linux-embedded-dev to guide me through an I2C peripheral bringup.`
-- `Use $linux-embedded-dev to explain the learning path for platform drivers and char devices.`
-- `Use $linux-embedded-dev to analyze an i.MX6ULL + OV5640 V4L2 capture path.`
+```text
+~/.codex/skills/linux-embedded-dev
+```
+
+## Example Prompts
+
+```text
+Use $linux-embedded-dev to help me learn Linux embedded development from bootloader to userspace.
+```
+
+```text
+Use $linux-embedded-dev to debug why my device tree node probes but no /dev node appears.
+```
+
+```text
+Use $linux-embedded-dev to guide me through an I2C peripheral bringup.
+```
+
+```text
+Use $linux-embedded-dev to explain the learning path for platform drivers and char devices.
+```
+
+```text
+Use $linux-embedded-dev to analyze an i.MX6ULL + OV5640 V4L2 capture path.
+```
+
+## Design Notes
+
+This skill borrows structural ideas from embedded review workflows: a clear top-level workflow, topic-focused references, checklist-driven debugging, and evidence-first reasoning.
+
+It is intentionally Linux-focused. MCU and RTOS firmware review patterns are useful inspiration, but this skill centers on Linux boot flow, device tree, drivers, userspace integration, and observability.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).

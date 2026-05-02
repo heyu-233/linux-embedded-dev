@@ -1,0 +1,22 @@
+# OS/editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Local notes and logs
+linux-camera-learning-notes.md
+*.log
+
+# Python/cache artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Build/temp output
+build/
+dist/
+tmp/
+temp/

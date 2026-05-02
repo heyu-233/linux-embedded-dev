@@ -196,6 +196,7 @@ During real work, add findings to `references/` instead of bloating this file. P
 
 - board notes in `references/board-case-template.md`
 - reusable checklists in `references/debug-checklists.md`
+- host-side full-link debug pipeline patterns in `references/full-link-debug-pipeline.md`
 - subsystem notes in focused files such as `references/imx6ull-camera.md`
 
 If the same command sequence or parsing step is repeated, add or update a script in `scripts/`.

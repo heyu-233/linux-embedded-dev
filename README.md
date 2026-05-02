@@ -74,6 +74,7 @@ linux-embedded-dev/
 - `references/device-tree-and-driver-workflow.md`: DTS, probe, ownership, and driver resource flow.
 - `references/common-bus-debugging.md`: I2C, SPI, UART, and MMC/SD debug workflow.
 - `references/char-device-and-platform-driver-path.md`: learning path for platform drivers and char-device style interfaces.
+- `references/full-link-debug-pipeline.md`: sanitized host-to-VM-to-board debugging pipeline pattern.
 - `references/camera-companion-index.md`: entry point for V4L2, media graph, sensor bringup, and camera performance topics.
 
 ## Installation

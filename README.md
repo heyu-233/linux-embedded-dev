@@ -63,6 +63,39 @@ Then invoke it explicitly:
 Use $linux-embedded-dev to debug why my DTS node probes but no /dev node appears.
 ```
 
+## debugctl Prototype
+
+The repository now includes a runnable Python prototype for `debugctl`.
+
+Run it from the repository root:
+
+```powershell
+$env:PYTHONPATH = "$PWD\src"
+python -m debugctl status --target examples\target.imx6ull.yaml
+python -m debugctl collect --target examples\target.imx6ull.yaml --out .runtime\latest
+python -m debugctl deploy --target examples\target.imx6ull.yaml --artifact .\build\hello
+python -m debugctl run --target examples\target.imx6ull.yaml --cmd "./hello"
+python -m debugctl diagnose --bundle .runtime\latest
+```
+
+Current scope:
+
+- parses and validates target YAML
+- routes the Linux-board and MCU subcommands
+- probes `linux-board` targets over SSH in `status`
+- collects bounded remote evidence over SSH in `collect`
+- uploads artifacts with SCP and verifies remote SHA-256 in `deploy`
+- runs remote commands inside `runtime.workdir` in `run`
+- classifies evidence bundles into connectivity, missing-command, partial, or complete states in `diagnose`
+- checks MCU tool availability and exposes `flash`, `reset`, and `serial`
+
+Not implemented yet:
+
+- serial capture
+- richer MCU serial capture loop
+- richer board-side diagnosis rules
+- power control and multi-resource orchestration
+
 ## The Default Working Loop
 
 The skill is designed to keep each turn executable and small:
@@ -92,6 +125,17 @@ Start with `references/module-index.md` when the right layer is unclear.
 | camera, V4L2, media graph, sensor bring-up | `references/camera-companion-index.md` |
 | host terminal controls VM, board, backend, logs | `references/full-link-debug-pipeline.md` |
 
+## Development Notes
+
+The current development direction is documented in:
+
+- `references/oss-reference-map.md`
+- `references/agent-architecture-notes.md`
+- `references/debugctl-cli-prototype.md`
+- `examples/oss-inspired-flows.md`
+- `examples/target.imx6ull.yaml`
+- `examples/target.stm32f103.yaml`
+
 ## Repository Structure
 
 ```text
@@ -101,10 +145,17 @@ linux-embedded-dev/
 |-- LICENSE
 |-- agents/
 |   `-- openai.yaml
+|-- examples/
+|   |-- oss-inspired-flows.md
+|   |-- target.imx6ull.yaml
+|   `-- target.stm32f103.yaml
 `-- references/
     |-- module-index.md
     |-- linux-embedded-learning-roadmap.md
     |-- linux-embedded-debug-workflow.md
+    |-- oss-reference-map.md
+    |-- agent-architecture-notes.md
+    |-- debugctl-cli-prototype.md
     |-- boot-chain-and-startup.md
     |-- device-tree-and-driver-workflow.md
     |-- common-bus-debugging.md

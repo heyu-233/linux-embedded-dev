@@ -1,0 +1,13 @@
+name: stm32f103
+type: mcu
+connect:
+  serial: COM4
+  probe: stlink
+flash:
+  method: openocd
+runtime:
+  log_source: serial
+evidence:
+  - serial_log
+  - flash_log
+  - reset_result

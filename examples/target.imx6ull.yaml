@@ -1,0 +1,17 @@
+name: imx6ull
+type: linux-board
+connect:
+  ssh: root@192.168.1.100
+  serial: COM3
+build:
+  mode: local
+deploy:
+  method: scp
+runtime:
+  workdir: /tmp/embedded-agent
+evidence:
+  - uname
+  - dmesg_tail
+  - dev_nodes
+  - modules
+  - disk
